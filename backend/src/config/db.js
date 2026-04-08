@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
 const env = require('./env');
 const logger = require('./logger');
 
@@ -10,6 +9,12 @@ const connectDB = async () => {
     let uri = env.MONGODB_URI;
 
     if (!uri) {
+      if (env.NODE_ENV === 'production') {
+        logger.error('MONGODB_URI is required in production! Please set it in your environment variables.');
+        process.exit(1);
+      }
+      // Only use in-memory server for local development
+      const { MongoMemoryServer } = require('mongodb-memory-server');
       logger.info('No MONGODB_URI provided. Starting in-memory MongoDB server...');
       mongoServer = await MongoMemoryServer.create();
       uri = mongoServer.getUri();
