@@ -1,0 +1,57 @@
+openapi: 3.0.0
+info:
+  title: NexPost API Documentation
+  version: 1.0.0
+  description: Real-time post syncing and searching API for the NexPost Platform.
+servers:
+  - url: http://localhost:5000/api
+paths:
+  /posts/sync:
+    post:
+      summary: Sync Posts
+      description: Fetches posts from an external API and performs an intelligent upsert/deduplication into the database.
+      responses:
+        '200':
+          description: Sync successful returned with counts.
+  /posts:
+    get:
+      summary: Get list of posts
+      description: Returns a paginated list of posts, sorted dynamically.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Page number
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: Records per page
+        - in: query
+          name: sortBy
+          schema:
+            type: string
+          description: Sort field (e.g. createdAt)
+        - in: query
+          name: order
+          schema:
+            type: string
+          description: Sort order (asc/desc)
+      responses:
+        '200':
+          description: Success
+  /posts/{id}:
+    get:
+      summary: Get post by External ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Post found
+        '404':
+          description: Post missing
