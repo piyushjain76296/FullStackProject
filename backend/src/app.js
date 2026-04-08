@@ -38,6 +38,9 @@ if (env.NODE_ENV === 'development') {
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  validate: false,
   message: { code: 429, message: 'Too many requests, please try again later.' }
 });
 
