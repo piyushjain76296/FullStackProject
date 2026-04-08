@@ -2,7 +2,7 @@
 
 A production-grade, highly scalable full-stack web application built for seamless data synchronization and real-time search capabilities. This project demonstrates modular backend architecture and a highly dynamic, premium frontend UI.
 
-## 🚀 Tech Stack
+##  Tech Stack
 
 ### Backend
 - **Node.js + Express**: Scalable web framework.
@@ -19,7 +19,7 @@ A production-grade, highly scalable full-stack web application built for seamles
 - **Axios**: Efficient API handling.
 - **Lucide React**: Modern iconography.
 
-## 📋 Features
+##  Features
 
 1. **Automated Sync**: Securely syncs and deduplicates 100+ posts from a mock External API (`jsonplaceholder`) into MongoDB.
 2. **Real-time Search**: Instantaneous search feedback powered by WebSockets, with debouncing applied to prevent flooding. Fully utilizes MongoDB Text Indexes.
@@ -27,7 +27,7 @@ A production-grade, highly scalable full-stack web application built for seamles
 4. **Caching Layer**: Basic LRU caching prevents the server from querying the DB redundantly during high load for equivalent queries.
 5. **Modern Architecture**: Clean separation of concerns (MVC approach) with specific layers for Validation, Errors, and Services.
 
-## 🛠️ Local Development Setup
+##  Local Development Setup
 
 ### Prerequisites
 - Node.js (v18+ recommended)
@@ -62,7 +62,7 @@ npm run dev
 
 The app will be accessible at `http://localhost:5173` (or the port defined by Vite output). Make sure to click **Sync from External API** first!
 
-## 🌍 Deployment Strategy
+##  Deployment Strategy
 
 To deploy this application successfully while maintaining the WebSocket persistence:
 
@@ -76,7 +76,7 @@ To deploy this application successfully while maintaining the WebSocket persiste
    - Publish to Vercel.
    - Point the `VITE_API_URL` environment variable to the production backend URL.
 
-## 🔬 Application Architecture Document
+##  Application Architecture Document
 
 - `backend/src/middlewares/validate.js`: Generic HOF to apply Zod Schema validation dynamically.
 - `backend/src/services/post.service.js`: The "brain" – handles business logic, MongoDB queries, aggregation, and DB deduplication (via `.bulkWrite` & `upsert`).
@@ -84,15 +84,15 @@ To deploy this application successfully while maintaining the WebSocket persiste
 - `frontend/src/hooks/useDebounce.js`: Hook intercepting overly repetitive key-strokes to prevent API floods.
 - `frontend/src/hooks/useSocket.js`: Safely connects and caches the Socket lifecycle for React's strict lifecycle execution.
 
-## 🔗 API Endpoints
+##  API Endpoints
 
 - `GET /posts` → Get all posts (paginated or infinite scroll)
 - `GET /posts/:id` → Get single post
 - `POST /sync` → Fetch & store posts from external API securely without deduplication errors
 
-👉 Check out the interactive Swagger API documentation at `/api-docs` when running the backend!
+ Check out the interactive Swagger API documentation at `/api-docs` when running the backend!
 
-## 🎥 Demo Flow
+##  Demo Flow
 
 1. Click **Sync from External API** to seed the initial data intelligently.
 2. View the cleanly **paginated / lazy-loaded feed**.
