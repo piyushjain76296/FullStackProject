@@ -24,7 +24,7 @@ app.use(cors({
   origin: env.CORS_ORIGIN === '*' ? '*' : allowedOrigins,
   credentials: true 
 }));
-app.options('*', cors());
+app.options(/(.*)/, cors());
 
 if (env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
