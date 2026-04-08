@@ -13,18 +13,21 @@ const ApiError = require('./utils/ApiError');
 
 const app = express();
 
+// Trust Render/Railway reverse proxy (required for rate-limiter & correct IP detection)
+app.set('trust proxy', 1);
+
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const allowedOrigins = [env.CORS_ORIGIN, 'https://full-stack-project-snowy-two.vercel.app'];
-app.use(cors({ 
-  origin: env.CORS_ORIGIN === '*' ? '*' : allowedOrigins,
-  credentials: true 
-}));
-app.options(/(.*)/, cors());
+const corsOptions = {
+  origin: true,
+  credentials: true
+};
+app.use(cors(corsOptions));
+app.options(/(.*)/, cors(corsOptions));
 
 if (env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
