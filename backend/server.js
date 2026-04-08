@@ -10,8 +10,9 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: env.CORS_ORIGIN,
-    methods: ['GET', 'POST']
+    origin: env.CORS_ORIGIN === '*' ? true : [env.CORS_ORIGIN, 'https://full-stack-project-snowy-two.vercel.app'],
+    methods: ['GET', 'POST'],
+    credentials: true
   }
 });
 

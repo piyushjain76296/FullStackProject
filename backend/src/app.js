@@ -13,12 +13,18 @@ const ApiError = require('./utils/ApiError');
 
 const app = express();
 
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors({ origin: env.CORS_ORIGIN }));
-app.options(/.*$/, cors());
+const allowedOrigins = [env.CORS_ORIGIN, 'https://full-stack-project-snowy-two.vercel.app'];
+app.use(cors({ 
+  origin: env.CORS_ORIGIN === '*' ? '*' : allowedOrigins,
+  credentials: true 
+}));
+app.options('*', cors());
 
 if (env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
